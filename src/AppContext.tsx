@@ -9,9 +9,12 @@ export const AppContext = createContext<IAppContext>({} as IAppContext);
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
 
+  //await axiosClient.get("/products") without images in cloudinary "WITHOUT BANNERS"
+  //localhost:1337/api/products?populate=* with images "Media" "WITH BANNERS"
+
   useEffect(() => {
     (async () => {
-      const rawProducts = (await axiosClient.get("/products")).data;
+      const rawProducts = (await axiosClient.get("/products?populate=*")).data;
       console.log(rawProducts.data);
       setProducts(rawProducts.data);
     })();

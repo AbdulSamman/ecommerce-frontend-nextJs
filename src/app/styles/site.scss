@@ -1,8 +1,22 @@
 body {
+  font-weight: bold;
   .header {
     padding: 0 1rem;
     .logo {
       width: auto;
+    }
+  }
+
+  .products {
+    .product {
+      .images {
+        background-color: blue;
+
+        .imagesProducts {
+          height: 190px;
+          width: 340px;
+        }
+      }
     }
   }
 }
