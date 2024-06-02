@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./styles/globals.css";
 import "./styles/site.scss";
-import Header from "./_components/Header";
-import Footer from "./_components/Footer";
+import Header from "../_components/Header";
+import Footer from "../_components/Footer";
 import { AppProvider } from "../AppContext";
 //change goole fonts
 //const inter = Inter({ subsets: ["latin"] });

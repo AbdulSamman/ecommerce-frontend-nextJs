@@ -1,9 +1,12 @@
 export interface IAppContext {
     products:IProduct[]
+
   }
 
   export interface IAppProvider {
     children: React.ReactNode;
+
+
   }
 
 

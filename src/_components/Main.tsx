@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 const Main = () => {
   return (
     <section className="bg-gray-900 text-white">

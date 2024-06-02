@@ -1,20 +1,21 @@
 "use client";
-import React from "react";
-import ProductList from "../ProductList";
+
+import ProductList from "./ProductList";
 import { useContext } from "react";
-import { AppContext } from "../../../AppContext";
+import { AppContext } from "../AppContext";
 import Image from "next/image";
 import { FaList } from "react-icons/fa";
+import { IProduct } from "../interfaces";
 
 //Tipp for externe url for images from cloudinary should add link in ext.config
 const ProductSection = () => {
-  const { products } = useContext(AppContext);
+  const { products }: any = useContext(AppContext);
 
   return (
-    <div className="  py-20 lg:px-20">
-      <h1 className="my-4 text-xl">Our Latest Products</h1>
-      <div className=" products gap-1 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-        {products.map((product) => {
+    <div className="px-2 py-20 lg:px-20 ">
+      <h1 className="px-2 mb-4">Our Latest Products</h1>
+      <div className=" products gap-3 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+        {products.map((product: IProduct) => {
           return (
             <div
               key={product.id}
