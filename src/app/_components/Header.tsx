@@ -1,11 +1,20 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 
 const Header = () => {
   return (
-    <header className="bg-white">
+    <header className="bg-white header">
       <div className="mx-auto flex h-16 max-w-screen-2xl items-center gap-8 px-4 sm:px-6 lg:px-8 shadow-md">
-        <Image src={"./logo.svg"} alt="logo" width={50} height={50} />
+        <Image
+          src={"/logo.svg"}
+          alt="logo"
+          width={50}
+          height={50}
+          className="logo"
+          priority={true}
+        />
 
         <div className="flex flex-1 items-center justify-end md:justify-between">
           <nav aria-label="Global" className="hidden md:block">

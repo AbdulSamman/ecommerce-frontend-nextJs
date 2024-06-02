@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+//import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
+import "./styles/globals.css";
+import "./styles/site.scss";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
+import { AppProvider } from "../AppContext";
+//change goole fonts
+//const inter = Inter({ subsets: ["latin"] });
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        {children}
+        <AppProvider>{children}</AppProvider>
         <Footer />
       </body>
     </html>
