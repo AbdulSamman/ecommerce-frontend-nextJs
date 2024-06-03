@@ -1,6 +1,9 @@
 export interface IAppContext {
     products:IProduct[]
-
+    productDetails:any
+    getOneProduct:(id:any)=>void
+    getProductListByCategory:(category:any)=>void
+    productListCategory:any
   }
 
   export interface IAppProvider {

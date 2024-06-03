@@ -1,7 +1,6 @@
 body {
   font-weight: bold;
   .header {
-    padding: 0 1rem;
     .logo {
       width: auto;
     }
@@ -10,13 +9,17 @@ body {
   .products {
     .product {
       .images {
-        background-color: blue;
-
         .imagesProducts {
           height: 190px;
           width: 340px;
         }
       }
+    }
+  }
+  .productBanner {
+    .productImageBanner {
+      height: 250px;
+      width: auto;
     }
   }
 }
