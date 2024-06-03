@@ -1,19 +1,20 @@
 import { TiShoppingCart } from "react-icons/ti";
 import { LuBadgeCheck } from "react-icons/lu";
 import { LuAlertOctagon } from "react-icons/lu";
+import SekeletonEffect from "./SkeletonEffect";
 
 const ProductInfo = ({ product }: any) => {
   return (
-    <div>
-      {product.data && (
-        <div className="px-4">
+    <div className="h-[300px]">
+      {product.data ? (
+        <div className="px-4 ">
           <h2 className="text-[20px]">{product.data.attributes.title}</h2>
           <h2 className="text-[15px] text-gray-500">
             {product.data.attributes.category}
           </h2>
-          <h2 className="text-[15px] mt-5">
+          <p className="text-[15px] mt-5">
             {product.data.attributes.description[0].children[0].text}
-          </h2>
+          </p>
           <h2 className="text-[10px] text-gray-500 flex items-center gap-x-3">
             {product.data.attributes.instantDelivery ? (
               <>
@@ -35,6 +36,8 @@ const ProductInfo = ({ product }: any) => {
             <span>Add To Cart</span>
           </button>
         </div>
+      ) : (
+        <SekeletonEffect />
       )}
     </div>
   );

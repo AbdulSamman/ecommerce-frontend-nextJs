@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { FaList } from "react-icons/fa";
 import { IProduct } from "../interfaces";
-
+import Link from "next/link";
 const ProductList = ({ products }: any) => {
   //moved to productSection, um die funktion mehrmals benutzen, für get Products and filter similar products
   //const { products }: any = useContext(AppContext);
@@ -10,8 +10,9 @@ const ProductList = ({ products }: any) => {
     <div className=" products gap-3 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
       {products.map((product: IProduct) => {
         return (
-          <div
+          <Link
             key={product.id}
+            href={`/product-details/${product.id}`}
             className="product p-1 border-teal-400  hover:border hover:cursor-pointer rounded-lg">
             <div className="images flex justify-center rounded-t-lg ">
               <Image
@@ -31,14 +32,16 @@ const ProductList = ({ products }: any) => {
               <div className="flex justify-between items-center">
                 <div className="py-1 flex items-center gap-x-2 text-gray-500">
                   <FaList />
-                  <h2 className="text-[10px]">{product.attributes.category}</h2>
+                  <span className="text-[10px]">
+                    {product.attributes.category}
+                  </span>
                 </div>
                 <span className="text-[15px]">
                   {product.attributes.price} €
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>

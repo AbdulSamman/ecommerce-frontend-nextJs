@@ -8,7 +8,7 @@ const ProductSection = () => {
   const { products }: any = useContext(AppContext);
   return (
     <div className="px-2 py-20 lg:px-20 ">
-      <h1 className="px-2 mb-4">Our Latest Products</h1>
+      <h1 className="px-2 mb-4">Brand Neu</h1>
       <ProductList products={products} />
     </div>
   );
