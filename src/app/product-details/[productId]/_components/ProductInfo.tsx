@@ -2,8 +2,19 @@ import { TiShoppingCart } from "react-icons/ti";
 import { LuBadgeCheck } from "react-icons/lu";
 import { LuAlertOctagon } from "react-icons/lu";
 import SekeletonEffect from "./SkeletonEffect";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const ProductInfo = ({ product }: any) => {
+  const { user } = useUser();
+  const router = useRouter();
+
+  const handleAddToCart = () => {
+    if (!user) {
+      router.push("/sign-in");
+    } else {
+    }
+  };
   return (
     <div className="h-[300px]">
       {product.data ? (
@@ -31,7 +42,9 @@ const ProductInfo = ({ product }: any) => {
           <h2 className="text-[32px] text-primary mt-3">
             {product.data.attributes.price}€
           </h2>
-          <button className="flex justify-between items-center gap-3 bg-primary hover:bg-teal-400 rounded-lg p-3 text-white">
+          <button
+            className="flex justify-between items-center gap-3 bg-primary hover:bg-teal-400 rounded-lg p-3 text-white"
+            onClick={() => handleAddToCart()}>
             <TiShoppingCart className="text-2xl" />
             <span>Add To Cart</span>
           </button>
