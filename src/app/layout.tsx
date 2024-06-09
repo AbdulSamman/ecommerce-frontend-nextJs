@@ -6,8 +6,11 @@ import "./styles/site.scss";
 import Header from "../_components/Header";
 import Footer from "../_components/Footer";
 import { AppProvider } from "../AppContext";
-//change goole fonts
+//change google fonts
 //const inter = Inter({ subsets: ["latin"] });
+
+//Clerk
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Montserrat({ subsets: ["latin"] });
 
@@ -22,12 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <AppProvider>{children}</AppProvider>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <Header />
+          <AppProvider>{children}</AppProvider>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
