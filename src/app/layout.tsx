@@ -26,13 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Header />
-          <AppProvider>{children}</AppProvider>
-          <Footer />
-        </body>
-      </html>
+      <AppProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </html>
+      </AppProvider>
     </ClerkProvider>
   );
 }

@@ -4,6 +4,8 @@ export interface IAppContext {
     getOneProduct:(id:any)=>void
     getProductListByCategory:(category:any)=>void
     productListCategory:any
+    cart:any
+    handleAddToCart:(product:any)=>void
   }
 
   export interface IAppProvider {

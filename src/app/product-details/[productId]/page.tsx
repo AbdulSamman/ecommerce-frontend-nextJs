@@ -2,12 +2,12 @@
 
 import { useContext, useEffect } from "react";
 import { AppContext } from "../../../AppContext";
-
 import BreadCrumb from "@/src/_components/BreadCrumb";
 import ProductBanner from "./_components/ProductBanner";
 import ProductInfo from "./_components/ProductInfo";
 import ProductList from "@/src/_components/ProductList";
 import { usePathname } from "next/navigation";
+
 const ProductDetails = ({ params }: any) => {
   //breadCrum nav
   const path: string = usePathname();

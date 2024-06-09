@@ -4,8 +4,13 @@ import Image from "next/image";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { CgShoppingCart } from "react-icons/cg";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 
 const Header = () => {
+  //cart
+  const { cart } = useContext(AppContext);
+
   //wenn clerk singin geöffnet wird header hidden/ auch footer
   const { user } = useUser();
   // //
@@ -90,8 +95,8 @@ const Header = () => {
               ) : (
                 <>
                   <span className="flex items-center justify-center text-blue-700">
-                    <CgShoppingCart className="text-2xl text-teal-500" />
-                    (0)
+                    <CgShoppingCart className="text-2xl text-teal-500" />(
+                    {cart.length})
                   </span>
                   <UserButton />
                 </>
