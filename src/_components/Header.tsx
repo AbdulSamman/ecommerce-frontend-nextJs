@@ -1,13 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
+import { CgShoppingCart } from "react-icons/cg";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   //wenn clerk singin geöffnet wird header hidden/ auch footer
   const { user } = useUser();
+  // //
+  // console.log(window.location.href);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  useEffect(() => {
+    setIsLoggedIn(window.location.href.toString().includes("sign-in"));
+  }, []);
   return (
-    user && (
+    !isLoggedIn && (
       <header className="bg-white header">
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center gap-8 px-4 sm:px-6 lg:px-8 shadow-md">
           <Image
@@ -65,19 +73,29 @@ const Header = () => {
             </nav>
 
             <div className="flex items-center gap-4">
-              <div className="sm:flex sm:gap-4">
-                <a
-                  className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-400"
-                  href="#">
-                  Login
-                </a>
+              {!user ? (
+                <div className="sm:flex sm:gap-4">
+                  <a
+                    className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-400"
+                    href="/sign-in">
+                    Login
+                  </a>
 
-                <a
-                  className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary transition hover:text-teal-400/75 sm:block"
-                  href="#">
-                  Register
-                </a>
-              </div>
+                  <a
+                    className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary transition hover:text-teal-400/75 sm:block"
+                    href="#">
+                    Register
+                  </a>
+                </div>
+              ) : (
+                <>
+                  <span className="flex items-center justify-center text-blue-700">
+                    <CgShoppingCart className="text-2xl text-teal-500" />
+                    (0)
+                  </span>
+                  <UserButton />
+                </>
+              )}
 
               <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
                 <span className="sr-only">Toggle menu</span>
