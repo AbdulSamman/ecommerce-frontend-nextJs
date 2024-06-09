@@ -1,7 +1,9 @@
 "use client";
-
+import { useUser } from "@clerk/nextjs";
 const Footer = () => {
-  return <div>Footer</div>;
+  const { user } = useUser();
+
+  return user && <div>Footer</div>;
 };
 
 export default Footer;
