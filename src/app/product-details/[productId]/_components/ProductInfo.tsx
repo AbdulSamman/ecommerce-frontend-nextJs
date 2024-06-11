@@ -4,9 +4,10 @@ import { LuAlertOctagon } from "react-icons/lu";
 import SekeletonEffect from "./SkeletonEffect";
 import { useContext } from "react";
 import { AppContext } from "../../../../AppContext";
+
 const ProductInfo = ({ product }: any) => {
   //cart
-  const { cart, handleAddToCart } = useContext(AppContext);
+  const { handleAddToCart } = useContext(AppContext);
 
   return (
     <div className="h-[300px]">

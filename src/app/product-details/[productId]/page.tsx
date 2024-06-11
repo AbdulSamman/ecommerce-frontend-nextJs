@@ -36,7 +36,13 @@ const ProductDetails = ({ params }: any) => {
         <h2 className="text-xl py-5">Similar Products</h2>
 
         {filteredProducts.length > 0 ? (
-          <ProductList products={filteredProducts} />
+          <>
+            <ProductList products={filteredProducts} />
+            <div>
+              <h2 className="text-xl py-5">Porducts could be interessted!</h2>
+              <ProductList products={products} />
+            </div>
+          </>
         ) : (
           <>
             {products.length > 0 ? (

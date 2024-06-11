@@ -5,21 +5,20 @@ export interface IAppContext {
     getProductListByCategory:(category:any)=>void
     productListCategory:any
     cart:any
+    isAdded:boolean
     handleAddToCart:(product:any)=>void
+    handleDeleteCartItem:(id:any)=>void
+    getCartItems:()=>void
   }
 
   export interface IAppProvider {
     children: React.ReactNode;
-
-
   }
 
 
   export interface IProduct {
     id:number,
     attributes:IProductAttributes
-
-
   }
 
   export interface IProductAttributes{
@@ -27,12 +26,12 @@ export interface IAppContext {
     category:boolean,
     createdAt:string,
     description:string[]
-  instantDelivery:boolean,
-  price:number
-  publishedAt:string,
-  title:string
-  updatedAt:string,
-  whatsIncluded:boolean
+    instantDelivery:boolean,
+    price:number
+    publishedAt:string,
+    title:string
+    updatedAt:string,
+    whatsIncluded:boolean
   }
 
   export interface IBanner{
@@ -64,4 +63,8 @@ export interface IAppContext {
     thumbnail: IFormatDetails;
     medium: IFormatDetails;
     small: IFormatDetails;
+  }
+
+  export interface CartProps {
+    setIsCartOpen: (isCartOpen: boolean) => void;
   }

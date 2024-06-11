@@ -1,20 +1,20 @@
 "use client";
 
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { IAppContext, IAppProvider, IProduct } from "./interfaces";
 import axiosClient from "./_utils/axiosClient";
 import CartApi from "./_utils/CartApi";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-export const AppContext = createContext<IAppContext>({} as IAppContext);
 
+export const AppContext = createContext<IAppContext>({} as IAppContext);
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [productDetails, setProductDetails] = useState<any>({});
   const [productListCategory, setProductListCategory] = useState<any>([]);
   //add To Cart
   const [cart, setCart] = useState<any>([]);
-
+  const [isAdded, setIsAdded] = useState<boolean>(false);
   const { user } = useUser();
   const router = useRouter();
 
@@ -61,34 +61,76 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   };
 
   //add to cart
-  const handleAddToCart = (product: any) => {
+
+  const handleAddToCart = async (product: any) => {
     if (!user) {
       router.push("/sign-in");
     } else {
-      // logic add to cart
-      //data from clerk
-      const data = {
-        data: {
-          userName: user.fullName,
-          email: user.primaryEmailAddress?.emailAddress,
-          products: [product.data?.id],
-        },
-      };
+      try {
+        // logic add to cart
+        //data from clerk
+        const data = {
+          data: {
+            userName: user?.fullName,
+            email: user?.primaryEmailAddress?.emailAddress,
+            products: [product?.data?.id],
+          },
+        };
 
-      CartApi.addToCart(data)
-        .then((res) => {
-          console.log("cart created", res?.data?.data?.id);
-          setCart((rawCart: any) => [
-            ...rawCart,
-            {
-              id: res?.data?.data?.id,
-              product,
-            },
-          ]);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+        //const res = (await axiosClient.post("/carts", data)).data;
+
+        const res = (await CartApi.addToCart(data)).data;
+
+        setCart([
+          ...cart,
+          {
+            id: res?.data?.id,
+            product,
+          },
+        ]);
+        setIsAdded(true);
+      } catch (error) {
+        console.error("Error adding to cart", error);
+      }
+    }
+  };
+
+  // [user] => wenn user sich ändert, soll cart auch geändert werden
+  useEffect(() => {
+    if (user) {
+      getCartItems();
+    }
+  }, [user]);
+
+  const getCartItems = () => {
+    (async () => {
+      const _cartItems: any = [];
+      const rawCart = (
+        await CartApi.getUserCartItems(user?.primaryEmailAddress?.emailAddress)
+      ).data;
+
+      rawCart.data.forEach((cartItem: any) => {
+        const _cartItem: any = {
+          ...cartItem,
+          cart: {
+            id: cartItem?.id,
+            product: cartItem?.attributes?.products?.data[0],
+          },
+        };
+        _cartItems.push(_cartItem);
+      });
+      setCart(_cartItems);
+    })();
+  };
+
+  // delete cart Item
+  const handleDeleteCartItem = async (id: any) => {
+    const res = (await CartApi.deleteCartItem(id)).data;
+
+    if (res) {
+      setCart((oldCart: any) =>
+        oldCart.filter((item: any) => item.id !== res?.data?.id)
+      );
     }
   };
 
@@ -102,6 +144,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         productListCategory,
         cart,
         handleAddToCart,
+        handleDeleteCartItem,
+        isAdded,
+        getCartItems,
       }}>
       {children}
     </AppContext.Provider>

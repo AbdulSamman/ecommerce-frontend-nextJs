@@ -6,10 +6,18 @@ import { CgShoppingCart } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import Link from "next/link";
+import Cart from "./Cart";
 
 const Header = () => {
   //cart
   const { cart } = useContext(AppContext);
+
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+
+  const handleCartOpen = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   //wenn clerk singin geöffnet wird header hidden/ auch footer
   const { user } = useUser();
@@ -23,14 +31,16 @@ const Header = () => {
     !isLoggedIn && (
       <header className="bg-white header">
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center gap-8 px-4 sm:px-6 lg:px-8 shadow-md">
-          <Image
-            src={"/logo.svg"}
-            alt="logo"
-            width={50}
-            height={50}
-            className="logo"
-            priority={true}
-          />
+          <Link href={"/"}>
+            <Image
+              src={"/logo.svg"}
+              alt="logo"
+              width={50}
+              height={50}
+              className="logo"
+              priority={true}
+            />
+          </Link>
 
           <div className="flex flex-1 items-center justify-end md:justify-between">
             <nav aria-label="Global" className="hidden md:block">
@@ -95,10 +105,16 @@ const Header = () => {
               ) : (
                 <>
                   <span className="flex items-center justify-center text-blue-700">
-                    <CgShoppingCart className="text-2xl text-teal-500" />(
-                    {cart.length})
+                    <CgShoppingCart
+                      className="text-2xl text-teal-500 cursor-pointer hover:scale-110"
+                      onClick={handleCartOpen}
+                    />
+                    ({cart.length})
                   </span>
-                  <UserButton />
+                  <>
+                    <UserButton afterSignOutUrl="/" />
+                    {isCartOpen && <Cart setIsCartOpen={setIsCartOpen} />}
+                  </>
                 </>
               )}
 
