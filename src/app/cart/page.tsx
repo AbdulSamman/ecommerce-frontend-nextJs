@@ -11,7 +11,6 @@ const CartPage = () => {
   const discount: number = 10;
   const shipping: number = 3.99;
 
-  console.log("cart", cart);
   useEffect(() => {
     const prices: any[] = [];
     cart.forEach((item: any) => {
@@ -135,6 +134,9 @@ const CartPage = () => {
                 </div>
               </div>
             </div>
+            <h2 className="text-red-300 text-[12px] bg-gray-200 p-2 rounded-md">
+              Note: All Items will be sent via Email
+            </h2>
           </div>
         </div>
       </div>

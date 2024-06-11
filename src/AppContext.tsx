@@ -15,6 +15,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   //add To Cart
   const [cart, setCart] = useState<any>([]);
   const [isAdded, setIsAdded] = useState<boolean>(false);
+
   const { user } = useUser();
   const router = useRouter();
 
@@ -127,11 +128,10 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   const handleDeleteCartItem = async (id: any) => {
     const res = (await CartApi.deleteCartItem(id)).data;
 
-    if (res) {
-      setCart((oldCart: any) =>
-        oldCart.filter((item: any) => item.id !== res?.data?.id)
-      );
-    }
+    const filterDeletedCartItem = cart.filter(
+      (m: any) => m.id !== res?.data?.id
+    );
+    setCart(filterDeletedCartItem);
   };
 
   return (
