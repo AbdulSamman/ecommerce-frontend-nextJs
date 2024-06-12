@@ -4,6 +4,8 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import Image from "next/image";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const CartPage = () => {
   const { cart, handleDeleteCartItem } = useContext(AppContext);
@@ -11,15 +13,32 @@ const CartPage = () => {
   const discount: number = 10;
   const shipping: number = 3.99;
 
+  // amount => getTotalAmount in route anzeigt und abschicken
+  //sehe router.push
+  const router = useRouter();
+
   useEffect(() => {
-    const prices: any[] = [];
+    getTotalPrice();
+  }, [cart]);
+
+  const getTotalPrice = () => {
+    const prices: number[] = [];
     cart.forEach((item: any) => {
       prices.push(parseFloat(item?.cart?.product?.attributes?.price) * 1);
     });
     setTotalPrice(
       prices.reduce((total: number, price: number) => total + price, 0)
     );
-  }, [cart]);
+  };
+
+  const getTotalAmount = () => {
+    const totalAmount = (
+      totalPrice -
+      (totalPrice * discount) / 100 +
+      shipping
+    ).toFixed(2);
+    return totalAmount;
+  };
 
   return (
     <section>
@@ -107,11 +126,7 @@ const CartPage = () => {
                   <div className="flex justify-between font-bold bg-gray-200 py-2 px-2 rounded-md">
                     <dt>TOTAL:</dt>
                     <dd>
-                      {(
-                        totalPrice -
-                        (totalPrice * discount) / 100 +
-                        shipping
-                      ).toFixed(2)}{" "}
+                      {getTotalAmount()}
                       <span> €</span>
                     </dd>
                   </div>
@@ -126,11 +141,13 @@ const CartPage = () => {
                 </div>
 
                 <div className="flex justify-end">
-                  <a
-                    href="#"
-                    className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">
+                  <button
+                    className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                    onClick={() =>
+                      router.push(`/checkout?amount=${getTotalAmount()}`)
+                    }>
                     Checkout
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

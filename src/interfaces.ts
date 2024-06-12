@@ -68,3 +68,6 @@ export interface IAppContext {
   export interface CartProps {
     setIsCartOpen: (isCartOpen: boolean) => void;
   }
+  export interface AmountProps {
+    amount:number
+  }
