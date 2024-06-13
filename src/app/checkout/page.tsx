@@ -23,7 +23,7 @@ const checkout = () => {
     mode: "payment",
     currency: "eur",
     //clientSecret: process.env.STRIPE_SECRET_KEY,
-    amount: amountInCents,
+    amount: amountString * 100,
   };
 
   return (

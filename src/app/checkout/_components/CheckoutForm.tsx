@@ -4,10 +4,21 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-
 import { useState } from "react";
 
+import { useUser } from "@clerk/nextjs";
+import { useContext } from "react";
+import { AppContext } from "../../../AppContext";
+import OrderApis from "@/src/_utils/OrderApis";
+import CartApi from "@/src/_utils/CartApi";
+
 const CheckoutForm = ({ amount }: AmountProps) => {
+  //Orders
+  const { cart } = useContext(AppContext);
+  const { user } = useUser();
+  console.log("cart", cart);
+
+  //
   const stripe = useStripe();
   const elements = useElements();
   // HERE STATE VARIABLES
@@ -31,6 +42,8 @@ const CheckoutForm = ({ amount }: AmountProps) => {
       setLoading(false);
       setErrorMessage(error.message);
     };
+
+    orders();
 
     // Trigger form validation and wallet collection
     const { error: submitError } = await elements.submit();
@@ -71,6 +84,31 @@ const CheckoutForm = ({ amount }: AmountProps) => {
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
     }
+  };
+  const orders = () => {
+    const productIds: any[] = [];
+    cart.forEach((item: any) => {
+      console.log("type", item);
+
+      productIds.push(item?.cart?.product?.id);
+    });
+    const data = {
+      data: {
+        email: user?.primaryEmailAddress?.emailAddress,
+        username: user?.fullName,
+        amount,
+        products: productIds,
+      },
+    };
+    OrderApis.createOrder(data).then((res) => {
+      //delete all cart items after pay
+
+      if (res) {
+        cart.forEach((item: any) => {
+          CartApi.deleteCartItem(item?.cart?.id).then((result) => {});
+        });
+      }
+    });
   };
   return (
     <form className="mt-20" onSubmit={handleSubmit}>

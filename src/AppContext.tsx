@@ -1,11 +1,12 @@
 "use client";
 
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect } from "react";
 import { IAppContext, IAppProvider, IProduct } from "./interfaces";
 import axiosClient from "./_utils/axiosClient";
 import CartApi from "./_utils/CartApi";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import OrderApis from "./_utils/OrderApis";
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
@@ -15,7 +16,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   //add To Cart
   const [cart, setCart] = useState<any>([]);
   const [isAdded, setIsAdded] = useState<boolean>(false);
-
+  //
   const { user } = useUser();
   const router = useRouter();
 
