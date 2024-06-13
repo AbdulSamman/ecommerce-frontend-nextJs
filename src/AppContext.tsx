@@ -72,7 +72,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         //data from clerk
         const data = {
           data: {
-            userName: user?.fullName,
+            username: user?.fullName,
             email: user?.primaryEmailAddress?.emailAddress,
             products: [product?.data?.id],
           },

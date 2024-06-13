@@ -13,18 +13,22 @@ const stripePromise = loadStripe(
 const checkout = () => {
   // call the amout from router
   const searchParams = useSearchParams();
+
+  const amountString: any = searchParams.get("amount");
+
+  const amountDecimal = parseFloat(amountString);
+
+  const amountInCents = amountString * 100;
   const options: any = {
     mode: "payment",
     currency: "eur",
     //clientSecret: process.env.STRIPE_SECRET_KEY,
-    amount: Math.round(Number(searchParams.get("amount")) * 100),
+    amount: amountInCents,
   };
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm
-        amount={Math.round(Number(searchParams.get("amount")) * 100)}
-      />
+      <CheckoutForm amount={amountString} />
     </Elements>
   );
 };

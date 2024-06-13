@@ -4,7 +4,6 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import Image from "next/image";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const CartPage = () => {

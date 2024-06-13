@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import Link from "next/link";
-import Cart from "./Cart";
+import Cart from "../app/cart/_components/Cart";
 
 const Header = () => {
   //cart
