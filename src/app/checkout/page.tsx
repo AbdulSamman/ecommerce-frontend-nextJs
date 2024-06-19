@@ -18,17 +18,17 @@ const checkout = () => {
 
   const amountDecimal = parseFloat(amountString);
 
-  const amountInCents = amountString * 100;
+  const amountInCents = Math.round(amountDecimal * 100);
   const options: any = {
     mode: "payment",
     currency: "eur",
     //clientSecret: process.env.STRIPE_SECRET_KEY,
-    amount: amountString * 100,
+    amount: amountInCents,
   };
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm amount={amountString} />
+      <CheckoutForm amount={amountDecimal} />
     </Elements>
   );
 };

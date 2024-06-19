@@ -16,7 +16,6 @@ const CheckoutForm = ({ amount }: AmountProps) => {
   //Orders
   const { cart } = useContext(AppContext);
   const { user } = useUser();
-  console.log("cart", cart);
 
   //
   const stripe = useStripe();
@@ -43,8 +42,11 @@ const CheckoutForm = ({ amount }: AmountProps) => {
       setErrorMessage(error.message);
     };
 
-    orders();
-
+    // should call here
+    //setLoading(true);
+    //await orders();
+    //sendgrid
+    await sendEmail();
     // Trigger form validation and wallet collection
     const { error: submitError } = await elements.submit();
     if (submitError) {
@@ -110,6 +112,36 @@ const CheckoutForm = ({ amount }: AmountProps) => {
       }
     });
   };
+
+  //sendgrid
+
+  const sendEmail = async () => {
+    try {
+      const response = await fetch("http://localhost:1337/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "boudiii89@gmail.com",
+          subject: "Test Email",
+          text: "This is a test email sent from frontend to backend via Strapi and SendGrid.",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send email");
+      }
+
+      const data = await response.json();
+      console.log("Email sent:", data);
+      alert("Email sent successfully!");
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send email");
+    }
+  };
+
   return (
     <form className="mt-20" onSubmit={handleSubmit}>
       <div className="mx-10 xl:mx-[320px]">
