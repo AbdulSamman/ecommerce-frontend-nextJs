@@ -13,7 +13,7 @@ const ProductList = ({ products }: any) => {
           <Link
             key={product.id}
             href={`/product-details/${product.id}`}
-            className="product p-1 border-teal-400  hover:border hover:cursor-pointer rounded-lg">
+            className="product p-1 border-teal-400 hover:border hover:cursor-pointer rounded-lg">
             <div className="images flex justify-center rounded-t-lg ">
               <Image
                 src={product.attributes.banner.data.attributes.url}
@@ -24,7 +24,7 @@ const ProductList = ({ products }: any) => {
                 priority={true}
               />
             </div>
-            <div className="py-2  text-start px-1 bg-gray-100 rounded-b-lg ">
+            <div className="py-2 text-start px-1 bg-gray-100 rounded-b-lg ">
               <h2 className="text-[12px] line-clamp-1">
                 {product.attributes.title}
               </h2>

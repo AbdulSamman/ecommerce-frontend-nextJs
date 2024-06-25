@@ -49,7 +49,7 @@ const CartPage = () => {
             </h1>
           </header>
 
-          <div className="mt-8  ">
+          <div className="mt-8">
             <ul className="space-y-4 ">
               {cart?.map((cartItem: any) => {
                 return (

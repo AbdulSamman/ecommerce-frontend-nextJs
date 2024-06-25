@@ -26,14 +26,14 @@ const ProductDetails = ({ params }: any) => {
   );
 
   return (
-    <div className="px-10 py-8 md:px-18 ">
+    <div className="px-2 py-8 md:px-18 lg:px-10">
       <BreadCrumb path={path} />
       <div className="grid grid-cols-1 sm:grid-cols-2 items-start mt-10 gap-y-[30px]">
         <ProductBanner product={productDetails} />
         <ProductInfo product={productDetails} />
       </div>
       <div className=" mt-10">
-        <h2 className="text-xl py-5">Similar Products</h2>
+        <h2 className="text-xl py-5 ">Similar Products</h2>
 
         {filteredProducts.length > 0 ? (
           <>

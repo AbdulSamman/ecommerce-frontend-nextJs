@@ -17,7 +17,7 @@ const Cart = ({ setIsCartOpen }: CartProps) => {
   }, [cart]);
 
   return (
-    <div className=" w-[300px] h-[300px] border bg-gray-100 shadow-sm absolute rounded-md right-3 top-14 px-2 overflow-auto z-10">
+    <div className="w-[300px] h-[300px] border bg-gray-100 shadow-sm absolute rounded-md right-3 top-[63px] px-2 overflow-auto z-10">
       <button
         className="absolute end-1.5 top-2 text-gray-600 transition hover:scale-110 hover:text-blue-500"
         onClick={() => setIsCartOpen(false)}>

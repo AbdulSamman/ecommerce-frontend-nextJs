@@ -30,7 +30,7 @@ export default function RootLayout({
         <html lang="en">
           <body className={inter.className}>
             <Header />
-            {children}
+            <div style={{ marginTop: "64px" }}>{children}</div>
             <Footer />
           </body>
         </html>

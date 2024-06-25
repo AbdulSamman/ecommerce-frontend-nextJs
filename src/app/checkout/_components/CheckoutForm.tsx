@@ -5,12 +5,15 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import ReactDOMServer from "react-dom/server";
 
 import { useUser } from "@clerk/nextjs";
 import { useContext } from "react";
 import { AppContext } from "../../../AppContext";
 import OrderApis from "@/src/_utils/OrderApis";
 import CartApi from "@/src/_utils/CartApi";
+import axios from "axios";
+import { EmailTemplate } from "@/src/_components/EmailTemplate";
 
 const CheckoutForm = ({ amount }: AmountProps) => {
   //Orders
@@ -44,9 +47,9 @@ const CheckoutForm = ({ amount }: AmountProps) => {
 
     // should call here
     //setLoading(true);
-    //await orders();
+    orders();
     //sendgrid
-    await sendEmail();
+    sendEmail();
     // Trigger form validation and wallet collection
     const { error: submitError } = await elements.submit();
     if (submitError) {
@@ -74,7 +77,7 @@ const CheckoutForm = ({ amount }: AmountProps) => {
       clientSecret,
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000/payment-confirmed",
+        return_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/payment-confirmed`,
       },
     });
 
@@ -117,28 +120,20 @@ const CheckoutForm = ({ amount }: AmountProps) => {
 
   const sendEmail = async () => {
     try {
-      const response = await fetch("http://localhost:1337/api/email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: "boudiii89@gmail.com",
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/email`,
+        {
+          to: user?.primaryEmailAddress?.emailAddress,
           subject: "Test Email",
-          text: "This is a test email sent from frontend to backend via Strapi and SendGrid.",
-        }),
-      });
+          html: ReactDOMServer.renderToString(<EmailTemplate user={user} />),
+        }
+      );
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error("Failed to send email");
       }
-
-      const data = await response.json();
-      console.log("Email sent:", data);
-      alert("Email sent successfully!");
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("Failed to send email");
     }
   };
 

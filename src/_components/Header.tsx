@@ -8,6 +8,8 @@ import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import Link from "next/link";
 import Cart from "../app/cart/_components/Cart";
+import { AiOutlineMenu } from "react-icons/ai";
+import { BsXLg } from "react-icons/bs";
 
 const Header = () => {
   //cart
@@ -19,6 +21,12 @@ const Header = () => {
     setIsCartOpen(!isCartOpen);
   };
 
+  // menu
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const handleToggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   //wenn clerk singin geöffnet wird header hidden/ auch footer
   const { user } = useUser();
   // //
@@ -27,62 +35,86 @@ const Header = () => {
   useEffect(() => {
     setIsLoggedIn(window.location.href.toString().includes("sign-in"));
   }, []);
+
+  // resize menu wenn geöffnet ist
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 767) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     !isLoggedIn && (
-      <header className="bg-white header">
-        <div className="mx-auto flex h-16 max-w-screen-2xl items-center gap-8 px-4 sm:px-6 lg:px-8 shadow-md">
+      <header className="bg-white header fixed justify-between w-full top-0 z-10 shadow-md">
+        <div className="flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
           <Link href={"/"}>
-            <Image
-              src={"/logo.svg"}
-              alt="logo"
-              width={50}
-              height={50}
-              className="logo"
-              priority={true}
-            />
+            <svg
+              className="w-8 text-[#111827]"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeMiterlimit="10"
+              stroke="currentColor"
+              fill="none">
+              <rect x="3" y="1" width="7" height="12" />
+              <rect x="3" y="17" width="7" height="6" />
+              <rect x="14" y="1" width="7" height="6" />
+              <rect x="14" y="11" width="7" height="12" />
+            </svg>
           </Link>
 
-          <div className="flex flex-1 items-center justify-end md:justify-between">
-            <nav aria-label="Global" className="hidden md:block">
+          <div className="flex flex-1 items-center justify-end md:justify-between ">
+            <nav
+              aria-label="Global"
+              className={`${isMenuOpen ? "menuIsOpen" : "hidden "} md:block`}>
+              {!isMenuOpen}
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#">
                     Home
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#">
                     Explore
-                  </a>
+                  </Link>{" "}
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#">
                     Projects
-                  </a>
+                  </Link>{" "}
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#">
                     About Us
-                  </a>
+                  </Link>{" "}
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
                     href="#">
                     Contact Us
-                  </a>
+                  </Link>{" "}
                 </li>
               </ul>
             </nav>
@@ -90,17 +122,16 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {!user ? (
                 <div className="sm:flex sm:gap-4">
-                  <a
+                  <Link
                     className="block rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-400"
                     href="/sign-in">
                     Login
-                  </a>
-
-                  <a
+                  </Link>
+                  <Link
                     className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary transition hover:text-teal-400/75 sm:block"
                     href="#">
                     Register
-                  </a>
+                  </Link>
                 </div>
               ) : (
                 <>
@@ -118,21 +149,14 @@ const Header = () => {
                 </>
               )}
 
-              <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
-                <span className="sr-only">Toggle menu</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
+              <button
+                className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+                onClick={handleToggleMenu}>
+                {!isMenuOpen ? (
+                  <AiOutlineMenu className="menuIcon" />
+                ) : (
+                  <BsXLg className="menuIcon" />
+                )}
               </button>
             </div>
           </div>

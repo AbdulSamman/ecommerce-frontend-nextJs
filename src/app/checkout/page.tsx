@@ -28,7 +28,9 @@ const checkout = () => {
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm amount={amountDecimal} />
+      <div className=" py-5 ">
+        <CheckoutForm amount={amountDecimal} />
+      </div>
     </Elements>
   );
 };

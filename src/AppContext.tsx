@@ -6,7 +6,6 @@ import axiosClient from "./_utils/axiosClient";
 import CartApi from "./_utils/CartApi";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import OrderApis from "./_utils/OrderApis";
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
