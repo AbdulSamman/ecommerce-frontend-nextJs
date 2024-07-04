@@ -52,7 +52,7 @@ const Header = () => {
 
   return (
     !isLoggedIn && (
-      <header className="bg-white header fixed justify-between w-full top-0 z-10 shadow-md">
+      <header className="bg-white header fixed justify-between w-full top-0 z-20 shadow-md">
         <div className="flex h-16 items-center gap-8 px-4 sm:px-6 lg:px-8">
           <Link href={"/"}>
             <svg
@@ -129,7 +129,7 @@ const Header = () => {
                   </Link>
                   <Link
                     className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-primary transition hover:text-teal-400/75 sm:block"
-                    href="#">
+                    href="/sign-up">
                     Register
                   </Link>
                 </div>

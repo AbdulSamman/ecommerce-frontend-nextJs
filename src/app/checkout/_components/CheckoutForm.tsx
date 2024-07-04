@@ -125,6 +125,7 @@ const CheckoutForm = ({ amount }: AmountProps) => {
         {
           to: user?.primaryEmailAddress?.emailAddress,
           subject: "Test Email",
+          cc: "sammanab89@gmail.com",
           html: ReactDOMServer.renderToString(<EmailTemplate user={user} />),
         }
       );

@@ -15,7 +15,7 @@ export const Footer = () => {
           d="M0 22L120 17C240 11 480 1 720 1C960 1 1200 11 1320 17L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z"
         />
       </svg>
-      <div className="px-4 pt-12 ">
+      <div className="px-4 pt-12">
         <div className="grid gap-16 row-gap-10 mb-8 lg:grid-cols-6">
           <div className="md:max-w-md lg:col-span-2">
             <a

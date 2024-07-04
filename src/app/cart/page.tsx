@@ -9,8 +9,9 @@ import { useRouter } from "next/navigation";
 const CartPage = () => {
   const { cart, handleDeleteCartItem } = useContext(AppContext);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [shipping, setShipping] = useState<number>(0);
+  const [hardWare, setHardWare] = useState<number>(0);
   const discount: number = 10;
-  const shipping: number = 3.99;
 
   // amount => getTotalAmount in route anzeigt und abschicken
   //sehe router.push
@@ -34,9 +35,20 @@ const CartPage = () => {
     const totalAmount = (
       totalPrice -
       (totalPrice * discount) / 100 +
-      shipping
+      shipping +
+      hardWare
     ).toFixed(2);
     return totalAmount;
+  };
+
+  const handleShipping = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setShipping(3.99);
+      setHardWare(10);
+    } else {
+      setShipping(0);
+      setHardWare(0);
+    }
   };
 
   return (
@@ -113,13 +125,41 @@ const CartPage = () => {
                   </div>
 
                   <div className="flex justify-between px-2">
-                    <dt>SHIPPING:</dt>
-                    <dd>{shipping} €</dd>
-                  </div>
-
-                  <div className="flex justify-between px-2">
                     <dt>DISCOUNT:</dt>
                     <dd>- {discount} %</dd>
+                  </div>
+
+                  <div className="flex  px-2">
+                    {shipping === 0 ? (
+                      <div className=" w-full flex justify-between">
+                        <dt className="line-through text-red-400">SHIPPING:</dt>
+                        <dd className="line-through text-red-400">
+                          {shipping} €
+                        </dd>
+                      </div>
+                    ) : (
+                      <div className="flex justify-between w-full text-green-400">
+                        <dt>SHIPPING:</dt>
+                        <dd>{shipping} €</dd>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex  px-2">
+                    {shipping === 0 ? (
+                      <div className=" w-full flex justify-between">
+                        <dt className="line-through text-red-400">
+                          USB Hardware:
+                        </dt>
+                        <dd className="line-through text-red-400">
+                          {hardWare} €
+                        </dd>
+                      </div>
+                    ) : (
+                      <div className="flex justify-between w-full text-green-400">
+                        <dt>USB Hardware:</dt>
+                        <dd>{hardWare} €</dd>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex justify-between font-bold bg-gray-200 py-2 px-2 rounded-md">
@@ -150,9 +190,21 @@ const CartPage = () => {
                 </div>
               </div>
             </div>
-            <h2 className="text-red-300 text-[12px] bg-gray-200 p-2 rounded-md">
+            <h2 className="text-red-400 text-[12px] bg-gray-200 p-2 rounded-md mb-2">
               Note: All Items will be sent via Email
             </h2>
+            <div className="flex gap-6 bg-gray-200 p-2  text-[12px] ">
+              <input type="checkbox" onChange={(e) => handleShipping(e)} />
+              {shipping === 0 ? (
+                <h2 className="text-red-400 rounded-md line-through">
+                  I Want the full course on USB
+                </h2>
+              ) : (
+                <h2 className="text-green-700 rounded-md">
+                  I Want the full course on USB
+                </h2>
+              )}
+            </div>
           </div>
         </div>
       </div>

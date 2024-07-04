@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 const paymentConfirmed = () => {
   return (
-    <div className="flex flex-col items-center justify-center px-5 mt-4">
+    <div className="flex flex-col items-center justify-center px-5 h-[445px]">
       <Image src="/verify.gif" alt="check" width={130} height={130} />
       <h2 className="text-[30px]">Payment Successful</h2>
       <p className="text-[17px] text-center mt-6 text-gray-500">
