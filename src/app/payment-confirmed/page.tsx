@@ -3,10 +3,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { EmailTemplate } from "@/src/_components/EmailTemplate";
 const paymentConfirmed = () => {
   return (
     <div className="flex flex-col items-center justify-center px-5 h-[445px]">
-      <Image src="/verify.gif" alt="check" width={130} height={130} />
+      <Image
+        src="/verify.gif"
+        alt="check"
+        width={130}
+        height={130}
+        unoptimized
+        priority
+      />
       <h2 className="text-[30px]">Payment Successful</h2>
       <p className="text-[17px] text-center mt-6 text-gray-500">
         We sent an email with your order confirmation along with Digital Content

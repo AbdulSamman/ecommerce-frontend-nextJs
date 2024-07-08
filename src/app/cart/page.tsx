@@ -7,49 +7,55 @@ import { AppContext } from "../../AppContext";
 import { useRouter } from "next/navigation";
 
 const CartPage = () => {
-  const { cart, handleDeleteCartItem } = useContext(AppContext);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [shipping, setShipping] = useState<number>(0);
-  const [hardWare, setHardWare] = useState<number>(0);
-  const discount: number = 10;
-
-  // amount => getTotalAmount in route anzeigt und abschicken
-  //sehe router.push
+  const {
+    cart,
+    handleDeleteCartItem,
+    totalPrice,
+    discount,
+    shipping,
+    hardWare,
+    getTotalAmount,
+    handleShipping,
+  } = useContext(AppContext);
+  // const [totalPrice, setTotalPrice] = useState<number>(0);
+  // const [shipping, setShipping] = useState<number>(0);
+  // const [hardWare, setHardWare] = useState<number>(0);
+  // const discount: number = 10;
   const router = useRouter();
 
-  useEffect(() => {
-    getTotalPrice();
-  }, [cart]);
+  // useEffect(() => {
+  //   getTotalPrice();
+  // }, [cart]);
 
-  const getTotalPrice = () => {
-    const prices: number[] = [];
-    cart.forEach((item: any) => {
-      prices.push(parseFloat(item?.cart?.product?.attributes?.price) * 1);
-    });
-    setTotalPrice(
-      prices.reduce((total: number, price: number) => total + price, 0)
-    );
-  };
+  // const getTotalPrice = () => {
+  //   const prices: number[] = [];
+  //   cart.forEach((item: any) => {
+  //     prices.push(parseFloat(item?.cart?.product?.attributes?.price) * 1);
+  //   });
+  //   setTotalPrice(
+  //     prices.reduce((total: number, price: number) => total + price, 0)
+  //   );
+  // };
 
-  const getTotalAmount = () => {
-    const totalAmount = (
-      totalPrice -
-      (totalPrice * discount) / 100 +
-      shipping +
-      hardWare
-    ).toFixed(2);
-    return totalAmount;
-  };
+  // const getTotalAmount = () => {
+  //   const totalAmount = (
+  //     totalPrice -
+  //     (totalPrice * discount) / 100 +
+  //     shipping +
+  //     hardWare
+  //   ).toFixed(2);
+  //   return totalAmount;
+  // };
 
-  const handleShipping = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setShipping(3.99);
-      setHardWare(10);
-    } else {
-      setShipping(0);
-      setHardWare(0);
-    }
-  };
+  // const handleShipping = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.checked) {
+  //     setShipping(3.99);
+  //     setHardWare(10);
+  //   } else {
+  //     setShipping(0);
+  //     setHardWare(0);
+  //   }
+  // };
 
   return (
     <section>
@@ -170,14 +176,6 @@ const CartPage = () => {
                     </dd>
                   </div>
                 </dl>
-
-                <div className="flex justify-end">
-                  <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
-                    <p className="whitespace-nowrap text-xs">
-                      2 Discounts Applied
-                    </p>
-                  </span>
-                </div>
 
                 <div className="flex justify-end">
                   <button

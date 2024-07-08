@@ -1,6 +1,15 @@
 import React, { CSSProperties } from "react";
-//CSSProperties typescript style
-export const EmailTemplate = ({ user }: any) => {
+import { IEmailProps } from "../interfaces";
+
+export const EmailTemplate = ({
+  user,
+  cart,
+  totalPrice,
+  shipping,
+  hardWare,
+  discount,
+  getTotalAmount,
+}: IEmailProps) => {
   const main: CSSProperties = {
     fontFamily: "Arial, sans-serif",
     fontSize: "16px",
@@ -15,6 +24,49 @@ export const EmailTemplate = ({ user }: any) => {
 
   const containerParagraph: CSSProperties = {
     padding: "0 20px",
+  };
+
+  const orderItem: CSSProperties = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "2rem",
+    padding: "1rem 0",
+    borderBottom: "1px solid #ccc",
+  };
+
+  const imageCon: CSSProperties = {
+    flexShrink: 0,
+  };
+  // const imageCon: CSSProperties = {
+  //   width: "150px",
+  //   height: "100px",
+  // };
+
+  const orderImages: CSSProperties = {
+    width: "150px",
+    height: "100px",
+    objectFit: "contain",
+    borderRadius: "5px",
+  };
+
+  // const orderDetails: CSSProperties = {
+  //   marginLeft: "8rem",
+  // };
+  const orderDetails: CSSProperties = {
+    flexGrow: 1,
+    textAlign: "left",
+  };
+  const orderTitle: CSSProperties = {
+    fontSize: "20px",
+    color: "#333",
+    marginBottom: "0.5rem",
+  };
+
+  const summaryOrder: CSSProperties = {
+    fontSize: "15px",
+    color: "#333",
+    fontWeight: "bold",
   };
 
   const bntContainer: CSSProperties = {
@@ -64,6 +116,70 @@ export const EmailTemplate = ({ user }: any) => {
         </div>
         <span style={{ fontStyle: "italic" }}>Best regards</span>
         <p style={footer}>Abdul Technical Services AS</p>
+      </div>
+      <div>
+        <h2 style={{ textAlign: "center" }}>Your Orders:</h2>
+
+        {cart?.map((cartItem: any) => {
+          return (
+            <div key={cartItem?.id} style={orderItem}>
+              {cartItem?.cart?.product?.attributes?.banner?.data?.attributes
+                ?.url && (
+                <div style={imageCon}>
+                  <img
+                    src={
+                      cartItem.cart?.product.attributes.banner.data.attributes
+                        .url
+                    }
+                    alt="cartImage"
+                    width={65}
+                    height={70}
+                    style={orderImages}
+                  />
+                </div>
+              )}
+              <div style={orderDetails}>
+                <h3 style={orderTitle}>
+                  {cartItem?.cart?.product?.attributes?.title}
+                </h3>
+
+                <dl>
+                  <div>
+                    Category:
+                    {cartItem?.cart?.product?.attributes?.category}
+                  </div>
+
+                  <div>
+                    Price: {cartItem?.cart?.product?.attributes?.price} €
+                  </div>
+                </dl>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div>
+        <h2 style={{ fontWeight: "bold", margin: "1rem 0" }}>Order Summary:</h2>
+        <div style={orderDetails}>
+          <p>
+            <span style={summaryOrder}>SUBTOTAL: </span>
+            {totalPrice.toFixed(2)} €
+          </p>
+          <p>
+            <span style={summaryOrder}>DISCOUNT: </span>-{discount} %
+          </p>
+          <p>
+            <span style={summaryOrder}>SHIPPING: </span> {shipping} €
+          </p>
+          <p>
+            <span style={summaryOrder}>HARDWARE: </span> {hardWare} €
+          </p>
+        </div>
+        <hr />
+        <p style={orderDetails}>
+          <span style={summaryOrder}>TOTAL: </span> {getTotalAmount()} €
+        </p>
       </div>
     </div>
   );

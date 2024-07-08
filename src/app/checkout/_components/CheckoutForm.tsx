@@ -17,7 +17,8 @@ import { EmailTemplate } from "@/src/_components/EmailTemplate";
 
 const CheckoutForm = ({ amount }: AmountProps) => {
   //Orders
-  const { cart } = useContext(AppContext);
+  const { cart, totalPrice, shipping, hardWare, getTotalAmount, discount } =
+    useContext(AppContext);
   const { user } = useUser();
 
   //
@@ -57,11 +58,6 @@ const CheckoutForm = ({ amount }: AmountProps) => {
       return;
     }
 
-    // const res: any = await axios.post(`api/create-intent`, {
-    //   amount: 10,
-    // });
-    // // here auch
-    // const clientSecret = await res.data.clientSecret;
     //oder fetch
     const res: any = await fetch(`api/create-intent`, {
       method: "POST",
@@ -93,11 +89,9 @@ const CheckoutForm = ({ amount }: AmountProps) => {
   const orders = () => {
     const productIds: any[] = [];
     cart.forEach((item: any) => {
-      console.log("type", item);
-
       productIds.push(item?.cart?.product?.id);
     });
-    const data = {
+    const data: any = {
       data: {
         email: user?.primaryEmailAddress?.emailAddress,
         username: user?.fullName,
@@ -105,9 +99,8 @@ const CheckoutForm = ({ amount }: AmountProps) => {
         products: productIds,
       },
     };
-    OrderApis.createOrder(data).then((res) => {
+    OrderApis.createOrder(data).then((res: any) => {
       //delete all cart items after pay
-
       if (res) {
         cart.forEach((item: any) => {
           CartApi.deleteCartItem(item?.cart?.id).then((result) => {});
@@ -125,8 +118,18 @@ const CheckoutForm = ({ amount }: AmountProps) => {
         {
           to: user?.primaryEmailAddress?.emailAddress,
           subject: "Test Email",
-          cc: "sammanab89@gmail.com",
-          html: ReactDOMServer.renderToString(<EmailTemplate user={user} />),
+          cc: process.env.NEXT_PUBLIC_OWN_EMAIL,
+          html: ReactDOMServer.renderToString(
+            <EmailTemplate
+              user={user}
+              cart={cart}
+              totalPrice={totalPrice}
+              shipping={shipping}
+              hardWare={hardWare}
+              discount={discount}
+              getTotalAmount={getTotalAmount}
+            />
+          ),
         }
       );
 

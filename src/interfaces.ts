@@ -9,6 +9,13 @@ export interface IAppContext {
     handleAddToCart:(product:any)=>void
     handleDeleteCartItem:(id:any)=>void
     getCartItems:()=>void
+    discount:number,
+    totalPrice:number,
+    shipping:number,
+    hardWare:number,
+    getTotalAmount:()=>any,
+    handleShipping:(e:any)=>void,
+
   }
 
   export interface IAppProvider {
@@ -70,4 +77,14 @@ export interface IAppContext {
   }
   export interface AmountProps {
     amount:number
+  }
+
+  export interface IEmailProps {
+    user: any,
+cart:any,
+totalPrice: number;
+shipping: number;
+hardWare: number;
+getTotalAmount:()=>any,
+discount:number
   }

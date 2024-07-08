@@ -104,24 +104,30 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   }, [user]);
 
   const getCartItems = () => {
-    (async () => {
-      const _cartItems: any = [];
-      const rawCart = (
-        await CartApi.getUserCartItems(user?.primaryEmailAddress?.emailAddress)
-      ).data;
+    try {
+      (async () => {
+        const _cartItems: any = [];
+        const rawCart = (
+          await CartApi.getUserCartItems(
+            user?.primaryEmailAddress?.emailAddress
+          )
+        ).data;
 
-      rawCart.data.forEach((cartItem: any) => {
-        const _cartItem: any = {
-          ...cartItem,
-          cart: {
-            id: cartItem?.id,
-            product: cartItem?.attributes?.products?.data[0],
-          },
-        };
-        _cartItems.push(_cartItem);
-      });
-      setCart(_cartItems);
-    })();
+        rawCart.data.forEach((cartItem: any) => {
+          const _cartItem: any = {
+            ...cartItem,
+            cart: {
+              id: cartItem?.id,
+              product: cartItem?.attributes?.products?.data[0],
+            },
+          };
+          _cartItems.push(_cartItem);
+        });
+        return setCart(_cartItems);
+      })();
+    } catch (error) {
+      console.error("Error fetching orders", error);
+    }
   };
 
   // delete cart Item
@@ -132,6 +138,46 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
       (m: any) => m.id !== res?.data?.id
     );
     setCart(filterDeletedCartItem);
+  };
+
+  // price handlen
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [shipping, setShipping] = useState<number>(0);
+  const [hardWare, setHardWare] = useState<number>(0);
+  const discount: number = 10;
+
+  useEffect(() => {
+    getTotalPrice();
+  }, [cart]);
+
+  const getTotalPrice = () => {
+    const prices: number[] = [];
+    cart.forEach((item: any) => {
+      prices.push(parseFloat(item?.cart?.product?.attributes?.price) * 1);
+    });
+    setTotalPrice(
+      prices.reduce((total: number, price: number) => total + price, 0)
+    );
+  };
+
+  const getTotalAmount = () => {
+    const totalAmount = (
+      totalPrice -
+      (totalPrice * discount) / 100 +
+      shipping +
+      hardWare
+    ).toFixed(2);
+    return totalAmount;
+  };
+
+  const handleShipping = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setShipping(3.99);
+      setHardWare(10);
+    } else {
+      setShipping(0);
+      setHardWare(0);
+    }
   };
 
   return (
@@ -147,6 +193,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         handleDeleteCartItem,
         isAdded,
         getCartItems,
+        discount,
+        totalPrice,
+        shipping,
+        hardWare,
+        getTotalAmount,
+        handleShipping,
       }}>
       {children}
     </AppContext.Provider>
