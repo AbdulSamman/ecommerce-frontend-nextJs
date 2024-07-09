@@ -63,9 +63,11 @@ export const EmailTemplate = ({
     width: "50%",
     textAlign: "left",
   };
+
   const summaryContainer: CSSProperties = {
     display: "flex",
   };
+
   const summaryRight: CSSProperties = {
     textAlign: "right",
     width: "50%",
@@ -74,17 +76,24 @@ export const EmailTemplate = ({
   const bntContainer: CSSProperties = {
     marginTop: "20px",
     textAlign: "center",
+    cursor: "pointer",
+    fontWeight: "bold",
   };
 
+  // const button: CSSProperties = {
+  //   backgroundColor: "none",
+  //   color: "#189AB4",
+  //   padding: "10px 20px",
+  //   border: "none",
+  //   borderRadius: "5px",
+  //   textDecoration: "none",
+  //   fontWeight: "bold",
+  // };
   const button: CSSProperties = {
     backgroundColor: "none",
     color: "#189AB4",
     padding: "10px 20px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
     textDecoration: "none",
-    fontWeight: "bold",
   };
 
   const footer: CSSProperties = {
@@ -112,7 +121,9 @@ export const EmailTemplate = ({
           below to download all digital content.
         </div>
         <div style={bntContainer}>
-          <a href="your-download-link" style={button}>
+          <a
+            href="https://res.cloudinary.com/duphnvqtf/image/upload/v1717345887/social_Media_marketing_7c5f7b2c00.jpg"
+            style={button}>
             Download
           </a>
         </div>

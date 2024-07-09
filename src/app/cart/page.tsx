@@ -167,6 +167,21 @@ const CartPage = () => {
                       </div>
                     )}
                   </div>
+                  <div className="flex gap-6 bg-gray-200 p-2  text-[12px] ">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => handleShipping(e)}
+                    />
+                    {shipping === 0 ? (
+                      <h2 className="text-red-400 rounded-md line-through">
+                        I Want the full course on USB
+                      </h2>
+                    ) : (
+                      <h2 className="text-green-700 rounded-md">
+                        I Want the full course on USB
+                      </h2>
+                    )}
+                  </div>
 
                   <div className="flex justify-between font-bold bg-gray-200 py-2 px-2 rounded-md">
                     <dt>TOTAL:</dt>
@@ -189,20 +204,8 @@ const CartPage = () => {
               </div>
             </div>
             <h2 className="text-red-400 text-[12px] bg-gray-200 p-2 rounded-md mb-2">
-              Note: All Items will be sent via Email
+              Note: All Items will be sent via Email and/or on hardware
             </h2>
-            <div className="flex gap-6 bg-gray-200 p-2  text-[12px] ">
-              <input type="checkbox" onChange={(e) => handleShipping(e)} />
-              {shipping === 0 ? (
-                <h2 className="text-red-400 rounded-md line-through">
-                  I Want the full course on USB
-                </h2>
-              ) : (
-                <h2 className="text-green-700 rounded-md">
-                  I Want the full course on USB
-                </h2>
-              )}
-            </div>
           </div>
         </div>
       </div>
