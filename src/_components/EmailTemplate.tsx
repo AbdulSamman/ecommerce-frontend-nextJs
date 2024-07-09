@@ -18,8 +18,8 @@ export const EmailTemplate = ({
   };
 
   const containerImg: CSSProperties = {
-    textAlign: "center",
     marginBottom: "20px",
+    textAlign: "center",
   };
 
   const containerParagraph: CSSProperties = {
@@ -28,20 +28,14 @@ export const EmailTemplate = ({
 
   const orderItem: CSSProperties = {
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: "2rem",
     padding: "1rem 0",
     borderBottom: "1px solid #ccc",
   };
 
   const imageCon: CSSProperties = {
-    flexShrink: 0,
+    width: "70%",
+    height: "100px",
   };
-  // const imageCon: CSSProperties = {
-  //   width: "150px",
-  //   height: "100px",
-  // };
 
   const orderImages: CSSProperties = {
     width: "150px",
@@ -50,13 +44,12 @@ export const EmailTemplate = ({
     borderRadius: "5px",
   };
 
-  // const orderDetails: CSSProperties = {
-  //   marginLeft: "8rem",
-  // };
   const orderDetails: CSSProperties = {
-    flexGrow: 1,
-    textAlign: "left",
+    marginLeft: "4rem",
+    textAlign: "right",
+    width: "70%",
   };
+
   const orderTitle: CSSProperties = {
     fontSize: "20px",
     color: "#333",
@@ -67,6 +60,15 @@ export const EmailTemplate = ({
     fontSize: "15px",
     color: "#333",
     fontWeight: "bold",
+    width: "50%",
+    textAlign: "left",
+  };
+  const summaryContainer: CSSProperties = {
+    display: "flex",
+  };
+  const summaryRight: CSSProperties = {
+    textAlign: "right",
+    width: "50%",
   };
 
   const bntContainer: CSSProperties = {
@@ -120,65 +122,70 @@ export const EmailTemplate = ({
       <div>
         <h2 style={{ textAlign: "center" }}>Your Orders:</h2>
 
-        {cart?.map((cartItem: any) => {
-          return (
-            <div key={cartItem?.id} style={orderItem}>
-              {cartItem?.cart?.product?.attributes?.banner?.data?.attributes
-                ?.url && (
-                <div style={imageCon}>
-                  <img
-                    src={
-                      cartItem.cart?.product.attributes.banner.data.attributes
-                        .url
-                    }
-                    alt="cartImage"
-                    width={65}
-                    height={70}
-                    style={orderImages}
-                  />
+        <div>
+          {cart?.map((cartItem: any) => {
+            return (
+              <div key={cartItem?.id} style={orderItem}>
+                {cartItem?.cart?.product?.attributes?.banner?.data?.attributes
+                  ?.url && (
+                  <div style={imageCon}>
+                    <img
+                      src={
+                        cartItem.cart?.product.attributes.banner.data.attributes
+                          .url
+                      }
+                      alt="cartImage"
+                      width={65}
+                      height={70}
+                      style={orderImages}
+                    />
+                  </div>
+                )}
+                <div style={orderDetails}>
+                  <h3 style={orderTitle}>
+                    {cartItem?.cart?.product?.attributes?.title}
+                  </h3>
+
+                  <div>
+                    <div>
+                      Category:
+                      {cartItem?.cart?.product?.attributes?.category}
+                    </div>
+
+                    <div>
+                      Price: {cartItem?.cart?.product?.attributes?.price} €
+                    </div>
+                  </div>
                 </div>
-              )}
-              <div style={orderDetails}>
-                <h3 style={orderTitle}>
-                  {cartItem?.cart?.product?.attributes?.title}
-                </h3>
-
-                <dl>
-                  <div>
-                    Category:
-                    {cartItem?.cart?.product?.attributes?.category}
-                  </div>
-
-                  <div>
-                    Price: {cartItem?.cart?.product?.attributes?.price} €
-                  </div>
-                </dl>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-
       <div>
         <h2 style={{ fontWeight: "bold", margin: "1rem 0" }}>Order Summary:</h2>
-        <div style={orderDetails}>
-          <p>
-            <span style={summaryOrder}>SUBTOTAL: </span>
-            {totalPrice.toFixed(2)} €
+        <div>
+          <p style={summaryContainer}>
+            <span style={summaryOrder}>SUBTOTAL: </span>{" "}
+            <span style={summaryRight}>{totalPrice.toFixed(2)} €</span>
           </p>
-          <p>
-            <span style={summaryOrder}>DISCOUNT: </span>-{discount} %
+          <p style={summaryContainer}>
+            <span style={summaryOrder}>DISCOUNT: </span>
+            <span style={summaryRight}>-{discount} %</span>
           </p>
-          <p>
-            <span style={summaryOrder}>SHIPPING: </span> {shipping} €
+          <p style={summaryContainer}>
+            <span style={summaryOrder}>SHIPPING: </span>{" "}
+            <span style={summaryRight}>{shipping} €</span>
           </p>
-          <p>
-            <span style={summaryOrder}>HARDWARE: </span> {hardWare} €
+          <p style={summaryContainer}>
+            <span style={summaryOrder}>HARDWARE: </span>{" "}
+            <span style={summaryRight}>{hardWare} €</span>
           </p>
         </div>
         <hr />
-        <p style={orderDetails}>
-          <span style={summaryOrder}>TOTAL: </span> {getTotalAmount()} €
+        <p style={summaryContainer}>
+          <span style={summaryOrder}>TOTAL: </span>{" "}
+          <span style={summaryRight}> {getTotalAmount()} €</span>
         </p>
       </div>
     </div>
