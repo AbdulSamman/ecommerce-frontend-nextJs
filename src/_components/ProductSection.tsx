@@ -14,9 +14,7 @@ const ProductSection = () => {
       {products.length > 0 ? (
         <ProductList products={products} />
       ) : (
-        <div className="flex justify-end items-center">
-          <SkeletonEffectProducts />
-        </div>
+        <SkeletonEffectProducts />
       )}
     </div>
   );
