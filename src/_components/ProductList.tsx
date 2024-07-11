@@ -3,13 +3,14 @@ import Image from "next/image";
 import { FaList } from "react-icons/fa";
 import { IProduct } from "../interfaces";
 import Link from "next/link";
-import { useContext } from "react";
-import { AppContext } from "../AppContext";
-const ProductList = () => {
-  const { products }: any = useContext(AppContext);
+
+const ProductList = ({ products }: any) => {
+  //moved to productSection, um die funktion mehrmals benutzen, für get Products and filter similar products
+  //const { products }: any = useContext(AppContext);
+
   return (
     <div className=" products gap-3 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-      {products?.map((product: any) => {
+      {products.map((product: IProduct) => {
         return (
           <Link
             key={product?.id}
