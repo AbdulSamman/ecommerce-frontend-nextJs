@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { EmailTemplate } from "@/src/_components/EmailTemplate";
+
 const paymentConfirmed = () => {
   return (
     <div className="flex flex-col items-center justify-center px-5 h-[445px]">

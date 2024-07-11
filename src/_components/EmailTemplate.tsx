@@ -80,15 +80,6 @@ export const EmailTemplate = ({
     fontWeight: "bold",
   };
 
-  // const button: CSSProperties = {
-  //   backgroundColor: "none",
-  //   color: "#189AB4",
-  //   padding: "10px 20px",
-  //   border: "none",
-  //   borderRadius: "5px",
-  //   textDecoration: "none",
-  //   fontWeight: "bold",
-  // };
   const button: CSSProperties = {
     backgroundColor: "none",
     color: "#189AB4",

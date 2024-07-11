@@ -114,7 +114,7 @@ const CheckoutForm = ({ amount }: AmountProps) => {
   const sendEmail = async () => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/email`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/email`,
         {
           to: user?.primaryEmailAddress?.emailAddress,
           subject: "Test Email",
