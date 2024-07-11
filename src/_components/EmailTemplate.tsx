@@ -63,6 +63,13 @@ export const EmailTemplate = ({
     width: "50%",
     textAlign: "left",
   };
+  const summaryDiscount: CSSProperties = {
+    fontSize: "15px",
+    fontWeight: "bold",
+    width: "50%",
+    textAlign: "left",
+    color: "tomato",
+  };
 
   const summaryContainer: CSSProperties = {
     display: "flex",
@@ -172,8 +179,8 @@ export const EmailTemplate = ({
             <span style={summaryRight}>{totalPrice.toFixed(2)} €</span>
           </p>
           <p style={summaryContainer}>
-            <span style={summaryOrder}>DISCOUNT: </span>
-            <span style={summaryRight}>-{discount} %</span>
+            <span style={summaryDiscount}>DISCOUNT: </span>
+            <span style={summaryDiscount}>-{discount} %</span>
           </p>
           <p style={summaryContainer}>
             <span style={summaryOrder}>SHIPPING: </span>{" "}
