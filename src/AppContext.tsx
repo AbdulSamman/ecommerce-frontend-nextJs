@@ -32,7 +32,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   }, []);
 
   // get one product with id
-
   const getOneProduct = async (id: string) => {
     try {
       const response = (await axiosClient.get(`/products/${id}?populate=*`))
