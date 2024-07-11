@@ -25,7 +25,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   //get products
   useEffect(() => {
     (async () => {
-      const rawProducts = (await axiosClient.get("/products?populate=*")).data;
+      const rawProducts = (await axiosClient.get("/api/products?populate=*"))
+        .data;
 
       setProducts(rawProducts.data);
     })();
@@ -34,7 +35,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   // get one product with id
   const getOneProduct = async (id: string) => {
     try {
-      const response = (await axiosClient.get(`/products/${id}?populate=*`))
+      const response = (await axiosClient.get(`/api/products/${id}?populate=*`))
         .data;
 
       setProductDetails(response);
@@ -50,7 +51,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     try {
       const response = (
         await axiosClient.get(
-          `/products?filters[category][$eq]=${category}&populate=*`
+          `/api/products?filters[category][$eq]=${category}&populate=*`
         )
       ).data;
 
