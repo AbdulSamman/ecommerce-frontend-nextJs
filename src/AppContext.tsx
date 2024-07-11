@@ -159,13 +159,17 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
   }, [cart]);
 
   const getTotalPrice = () => {
-    const prices: number[] = [];
-    cart.forEach((item: any) => {
-      prices.push(parseFloat(item?.cart?.product?.attributes?.price) * 1);
-    });
-    setTotalPrice(
-      prices.reduce((total: number, price: number) => total + price, 0)
-    );
+    try {
+      const prices: number[] = [];
+      cart.forEach((item: any) => {
+        prices.push(parseFloat(item?.cart?.product?.attributes?.price) * 1);
+      });
+      setTotalPrice(
+        prices.reduce((total: number, price: number) => total + price, 0)
+      );
+    } catch (error) {
+      console.log("error go get total price", error);
+    }
   };
 
   const getTotalAmount = () => {
