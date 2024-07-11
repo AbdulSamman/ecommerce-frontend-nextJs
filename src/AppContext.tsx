@@ -136,12 +136,16 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
   // delete cart Item
   const handleDeleteCartItem = async (id: any) => {
-    const res = (await CartApi.deleteCartItem(id)).data;
+    try {
+      const res = (await CartApi.deleteCartItem(id)).data;
 
-    const filterDeletedCartItem = cart.filter(
-      (m: any) => m.id !== res?.data?.id
-    );
-    setCart(filterDeletedCartItem);
+      const filterDeletedCartItem = cart.filter(
+        (m: any) => m.id !== res?.data?.id
+      );
+      setCart(filterDeletedCartItem);
+    } catch (error) {
+      console.log("faild to delete Cart item", error);
+    }
   };
 
   // price handlen
