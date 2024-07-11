@@ -24,12 +24,16 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
   //get products
   useEffect(() => {
-    (async () => {
-      const rawProducts = (await axiosClient.get("/api/products?populate=*"))
-        .data;
+    try {
+      (async () => {
+        const rawProducts = (await axiosClient.get("/api/products?populate=*"))
+          .data;
 
-      setProducts(rawProducts.data);
-    })();
+        setProducts(rawProducts.data);
+      })();
+    } catch (error) {
+      console.error("feld to fetch products", error);
+    }
   }, []);
 
   // get one product with id
