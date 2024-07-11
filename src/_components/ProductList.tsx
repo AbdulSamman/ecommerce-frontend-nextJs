@@ -9,7 +9,7 @@ const ProductList = () => {
   const { products }: any = useContext(AppContext);
   return (
     <div className=" products gap-3 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-      {products?.map((product: IProduct) => {
+      {products?.map((product: any) => {
         return (
           <Link
             key={product?.id}
