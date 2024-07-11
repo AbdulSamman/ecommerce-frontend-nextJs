@@ -16,7 +16,7 @@ const ProductBanner = ({ product }: any) => {
           className="productImageBanner rounded-lg"
         />
       ) : (
-        <div className="h-[300px] w-[500px] bg-slate-200 animate-pulse rounded-lg "></div>
+        <div className="h-[300px] lg:w-[450px] bg-slate-200 animate-pulse rounded-lg md:w-[300]"></div>
       )}
     </div>
   );

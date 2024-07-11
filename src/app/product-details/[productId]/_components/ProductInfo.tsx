@@ -12,7 +12,7 @@ const ProductInfo = ({ product }: any) => {
   return (
     <div className="h-[300px]">
       {product.data ? (
-        <div className="px-4 ">
+        <div className="p-4">
           <h2 className="text-[20px]">{product.data.attributes.title}</h2>
           <h2 className="text-[15px] text-gray-500">
             {product.data.attributes.category}

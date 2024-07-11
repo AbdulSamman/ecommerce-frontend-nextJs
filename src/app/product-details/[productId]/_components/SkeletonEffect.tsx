@@ -2,7 +2,7 @@
 
 const SekeletonEffect = () => {
   return (
-    <div className="px-4 flex flex-col gap-y-4">
+    <div className="px-2 flex flex-col gap-y-4">
       <div className="h-[30px] w-[200px]  bg-slate-200 animate-pulse rounded-lg "></div>
       <div className="h-[20px] w-[100px] bg-slate-200 animate-pulse rounded-lg "></div>
       <div className="h-[20px] w-[200px] mt-5 bg-slate-200 animate-pulse rounded-lg "></div>
