@@ -12,13 +12,8 @@ import { BsXLg } from "react-icons/bs";
 
 const Header = () => {
   //cart
-  const { cart } = useContext(AppContext);
-
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-
-  const handleCartOpen = () => {
-    setIsCartOpen(!isCartOpen);
-  };
+  const { cart, handleCartOpen, isCartOpen, setIsCartOpen } =
+    useContext(AppContext);
 
   // menu
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

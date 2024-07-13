@@ -15,7 +15,9 @@ export interface IAppContext {
     hardWare:number,
     getTotalAmount:()=>any,
     handleShipping:(e:any)=>void,
-
+    isCartOpen:boolean,
+    setIsCartOpen:(isCartOpen:boolean)=>void
+    handleCartOpen:()=>void
   }
 
   export interface IAppProvider {
