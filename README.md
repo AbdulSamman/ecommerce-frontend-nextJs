@@ -16,6 +16,7 @@ yarn dev
 pnpm dev
 # oder
 bun dev
+```
 
 Open [https://technicalserv.netlify.app/](ecommerce tkservas) with your browser to see the result.
 

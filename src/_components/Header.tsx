@@ -88,7 +88,6 @@ const Header = () => {
               <rect x="14" y="11" width="7" height="12" />
             </svg>
           </Link>
-
           <div className="flex flex-1 items-center justify-end md:justify-between ">
             <nav
               ref={menuRef}
