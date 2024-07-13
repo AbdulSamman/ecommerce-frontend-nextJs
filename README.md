@@ -18,7 +18,7 @@ pnpm dev
 bun dev
 ```
 
-Open [https://technicalserv.netlify.app/](ecommerce tkservas) with your browser to see the result.
+Open [ecommerce tkservas](https://technicalserv.netlify.app/) with your browser to see the result.
 
 ## Used technologies
 
