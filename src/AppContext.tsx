@@ -192,14 +192,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
     }
   };
 
-  // handle is card open
-
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
-
-  const handleCartOpen = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
   return (
     <AppContext.Provider
       value={{
@@ -219,9 +211,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
         hardWare,
         getTotalAmount,
         handleShipping,
-        isCartOpen,
-        setIsCartOpen,
-        handleCartOpen,
       }}>
       {children}
     </AppContext.Provider>

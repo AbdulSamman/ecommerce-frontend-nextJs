@@ -9,7 +9,7 @@ const ProductList = ({ products }: any) => {
   //const { products }: any = useContext(AppContext);
 
   return (
-    <div className=" products gap-3 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+    <div className=" products gap-1 grid bg-blue grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
       {products.map((product: IProduct) => {
         return (
           <Link
@@ -20,9 +20,9 @@ const ProductList = ({ products }: any) => {
               <Image
                 src={product?.attributes?.banner?.data?.attributes?.url}
                 alt="bannerCard"
-                width={350}
-                height={210}
-                className="imagesProducts  rounded-t-lg"
+                width={500}
+                height={500}
+                className="imagesProducts rounded-t-lg"
                 priority={true}
               />
             </div>
@@ -31,7 +31,7 @@ const ProductList = ({ products }: any) => {
                 {product?.attributes?.title}
               </h2>
 
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center ">
                 <div className="py-1 flex items-center gap-x-2 text-gray-500">
                   <FaList />
                   <span className="text-[10px]">

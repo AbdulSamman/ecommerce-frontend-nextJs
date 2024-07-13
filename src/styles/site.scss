@@ -14,8 +14,8 @@ body {
     .product {
       .images {
         .imagesProducts {
-          height: 190px;
-          width: 340px;
+          height: 200px;
+          width: 100%;
         }
       }
     }
@@ -28,26 +28,28 @@ body {
   }
 
   .menuIsOpen {
-    background-color: rgba(17, 24, 39, 0.9);
+    background-color: rgba(17, 24, 39, 0.98);
     height: calc(100% - 64px);
     position: fixed;
     z-index: 50;
     top: 64px;
     right: 0;
     width: 60%;
+    transition: all 2s ease;
 
     ul {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1rem;
       height: 100%;
       align-items: center;
       justify-content: center;
       padding: 1rem;
-      transition: all 2s ease;
 
       li {
         font-size: 1.5rem;
+
+        padding: 0.5rem;
       }
     }
   }

@@ -2,7 +2,7 @@
 
 import { UserButton, useUser } from "@clerk/nextjs";
 import { CgShoppingCart } from "react-icons/cg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
 import Link from "next/link";
@@ -12,14 +12,38 @@ import { BsXLg } from "react-icons/bs";
 
 const Header = () => {
   //cart
-  const { cart, handleCartOpen, isCartOpen, setIsCartOpen } =
-    useContext(AppContext);
+  const { cart } = useContext(AppContext);
+  const menuRef = useRef<HTMLDivElement>(null); // Ref für das Menü-Element
 
-  // menu
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+  const handleCartOpen = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
+  // // menu
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  // menu close außerhalb menuIsOpen
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Überprüfe, ob das geklickte Element nicht das Menü ist und schließe das Menü dann
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   //wenn clerk singin geöffnet wird header hidden/ auch footer
   const { user } = useUser();
@@ -67,29 +91,26 @@ const Header = () => {
 
           <div className="flex flex-1 items-center justify-end md:justify-between ">
             <nav
+              ref={menuRef}
               aria-label="Global"
               className={`${isMenuOpen ? "menuIsOpen" : "hidden "} md:block`}>
               {!isMenuOpen}
-              <ul className="flex items-center gap-6 text-sm">
+              <ul className="flex items-center gap-6 text-sm text-gray-200 ">
                 <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="#">
+                  <Link className=" transition hover:text-gray-500/75" href="#">
                     Home
                   </Link>
                 </li>
 
                 <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="#">
+                  <Link className=" transition hover:text-gray-500/75" href="#">
                     Explore
                   </Link>{" "}
                 </li>
 
                 <li>
                   <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
+                    className="  transition hover:text-gray-500/75"
                     href="#">
                     Projects
                   </Link>{" "}
@@ -97,16 +118,14 @@ const Header = () => {
 
                 <li>
                   <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
+                    className="  transition hover:text-gray-500/75"
                     href="#">
                     About Us
                   </Link>{" "}
                 </li>
 
                 <li>
-                  <Link
-                    className="text-gray-500 transition hover:text-gray-500/75"
-                    href="#">
+                  <Link className=" transition hover:text-gray-500/75" href="#">
                     Contact Us
                   </Link>{" "}
                 </li>
@@ -144,7 +163,7 @@ const Header = () => {
               )}
 
               <button
-                className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
+                className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden "
                 onClick={handleToggleMenu}>
                 {!isMenuOpen ? (
                   <AiOutlineMenu className="menuIcon" />
