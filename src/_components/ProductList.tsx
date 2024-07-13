@@ -22,7 +22,7 @@ const ProductList = ({ products }: any) => {
                 alt="bannerCard"
                 width={500}
                 height={500}
-                className="imagesProducts rounded-t-lg"
+                className="imagesProducts rounded-t-lg lg:h-[200px] h-[150px]"
                 priority={true}
               />
             </div>
