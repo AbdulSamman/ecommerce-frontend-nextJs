@@ -157,11 +157,10 @@ export const EmailTemplate = ({
 
                   <div>
                     <div>
-                      Category:
-                      {cartItem?.cart?.product?.attributes?.category}
+                      Category: {cartItem?.cart?.product?.attributes?.category}
                     </div>
 
-                    <div>
+                    <div style={{ fontWeight: "bold" }}>
                       Price: {cartItem?.cart?.product?.attributes?.price} €
                     </div>
                   </div>
