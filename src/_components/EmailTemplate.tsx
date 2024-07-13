@@ -180,20 +180,20 @@ export const EmailTemplate = ({
           </p>
           <p style={summaryContainer}>
             <span style={summaryDiscount}>DISCOUNT: </span>
-            <span style={summaryDiscount}>-{discount} %</span>
+            <span style={summaryRight}>-{discount} %</span>
           </p>
           <p style={summaryContainer}>
-            <span style={summaryOrder}>SHIPPING: </span>{" "}
+            <span style={summaryOrder}>SHIPPING: </span>
             <span style={summaryRight}>{shipping} €</span>
           </p>
           <p style={summaryContainer}>
-            <span style={summaryOrder}>HARDWARE: </span>{" "}
+            <span style={summaryOrder}>HARDWARE: </span>
             <span style={summaryRight}>{hardWare} €</span>
           </p>
         </div>
         <hr />
         <p style={summaryContainer}>
-          <span style={summaryOrder}>TOTAL: </span>{" "}
+          <span style={summaryOrder}>TOTAL: </span>
           <span style={summaryRight}> {getTotalAmount()} €</span>
         </p>
       </div>
