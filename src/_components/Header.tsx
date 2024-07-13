@@ -95,7 +95,7 @@ const Header = () => {
               aria-label="Global"
               className={`${isMenuOpen ? "menuIsOpen" : "hidden "} md:block`}>
               {!isMenuOpen}
-              <ul className="flex items-center gap-6 text-sm text-gray-200 ">
+              <ul className="flex items-center gap-6 text-sm text-gray-500 ">
                 <li>
                   <Link className=" transition hover:text-gray-500/75" href="#">
                     Home
